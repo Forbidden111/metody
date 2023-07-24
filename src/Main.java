@@ -1,60 +1,86 @@
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.logging.SocketHandler;
 
 public class Main {
     public static void main(String[] args) {
-        task2(2021, 1);
-        System.out.println(visokosniy(2021));
-        System.out.println(getDeliveryDays(150));
 
+        //1
+        int year = 2020;
+        int year2 = 2021;
+        checkIsYearLeap(year);
+        checkIsYearLeap(year2);
 
-    }
+        //2
+        int years = LocalDate.now().getYear();
+        int os = 0;
+        suggestVersion(os, year);
 
-    public static String visokosniy(int year) {
-
-        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
-            return year + "год является высокосным";
+        //3
+        int deliveryDistance = 1;
+        if (deliveryDistance < 20) {
+            System.out.println("нужен 1 день");
+        } else if (deliveryDistance <= 60) {
+            System.out.println("нужно 2 дня ");
+        } else if (deliveryDistance < 100) {
+            System.out.println("нужно 3 дня");
         } else {
-            return year + "год не являеться высокосным";
+            System.out.println("доставки нет ");
         }
     }
 
+    public static void checkIsYearLeap(int year) {
 
-    private static void task2(int deveceYear, int clientOS) {
+        if (year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) {
+            System.out.println(year + " год не является высокосным \n ");
+        } else {
+            System.out.println(year + " год является высокосным \n");
+        }
 
+    }
 
-        deveceYear = 2021;
-        if (clientOS == 0) {
-            if (deveceYear < 2015) {
-                System.out.println("iOS облегченная ");
-            } else {
-                System.out.println("iOS обычная ");
-            }
-        } else if (clientOS == 1) {
-            if (deveceYear < 2015) {
-                System.out.println("Android облегченная ");
-            } else {
-                System.out.println("Android обычная ");
-            }
+    public static void suggestVersion(int os, int year) {
+        int borderYear = 2015;
+        if (os == 0 && year < borderYear) {
+            System.out.println("Установите облегченную версию ИОС по сылке");
+        } else if (os == 0 && year >= borderYear) {
+            System.out.println("установить для ИОС ");
+        } else if (os == 1 && year < borderYear) {
+            System.out.println(" установить облегченную  для андроид");
+        } else if (os == 1 && year >= borderYear) {
+            System.out.println("установить для андроид");
+        } else {
+            System.out.println(" не удалось установить ");
+        }
+
+    }
+    public static void printDeliveryInfo(int deliveryDistance){
+        int deliveryDays = getDeliveryDays(deliveryDistance);
+        if (deliveryDays == -1){
+            System.out.println("доставки нет");
+        }else {
+            System.out.printf("потребуется %s дней", deliveryDays);
         }
     }
 
-
-
-
-
-    public static int getDeliveryDays(int deliveryDistance) {
+    public static int getDeliveryDays(int deliveryDistance){
         if (deliveryDistance < 20) {
             return 1;
         } else if (deliveryDistance <= 60) {
-            return  2;
+            return 2;
         } else if (deliveryDistance < 100) {
             return 3;
         } else {
-            return 0;
+            return -1;
         }
+
     }
+
+
 }
+
+
 
 
 
