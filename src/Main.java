@@ -1,7 +1,4 @@
-import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.time.LocalDate;
-import java.util.Locale;
-import java.util.logging.SocketHandler;
 
 public class Main {public static void main(String[] args) {
 
@@ -17,16 +14,10 @@ public class Main {public static void main(String[] args) {
     suggestVersion(os, year);
 
     //3
-    int deliveryDistance = 1;
-    if (deliveryDistance < 20) {
-        System.out.println("нужен 1 день");
-    } else if (deliveryDistance <= 60) {
-        System.out.println("нужно 2 дня ");
-    } else if (deliveryDistance < 100) {
-        System.out.println("нужно 3 дня");
-    } else {
-        System.out.println("доставки нет ");
-    }
+    int deliveryDistance=150;
+    printDeliveryInfo(deliveryDistance);
+
+
 }
 
     public static void checkIsYearLeap(int year) {
@@ -54,16 +45,17 @@ public class Main {public static void main(String[] args) {
         }
 
     }
-    public static void printDeliveryInfo(int deliveryDistance){
+
+    public static void printDeliveryInfo(int deliveryDistance) {
         int deliveryDays = getDeliveryDays(deliveryDistance);
-        if (deliveryDays == -1){
+        if (deliveryDays == -1) {
             System.out.println("доставки нет");
-        }else {
+        } else {
             System.out.printf("потребуется %s дней", deliveryDays);
         }
     }
 
-    public static int getDeliveryDays(int deliveryDistance){
+    public static int getDeliveryDays(int deliveryDistance) {
         if (deliveryDistance < 20) {
             return 1;
         } else if (deliveryDistance <= 60) {
@@ -75,6 +67,7 @@ public class Main {public static void main(String[] args) {
         }
 
     }
+
 
 
 }
